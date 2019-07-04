@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+	<!-- StringPrinter와 ConsolPrinter의 관리 관한을 넘기기 위해 bean 사용 -->
+	<bean id="hello" class="myspring.di.xml.Hello"> <!-- Hello파일은 Printer클래스 혹은 Consol클래스와의 의존관계가 있음 따라서 이를 명시해야함 -->
+		<!-- setName(name)과 맴핑 -->
+		<property name="name" value="Spring"/>
+		<!-- setPrinter(Printer)과 맴핑 -->
+		<property name="printer" ref="printer"/>
+	</bean>
+	
+	<bean id="printer" class="myspring.di.xml.StringPrinter"/>
+	<bean id="consolePrinter" class="myspring.di.xml.ConsolPrinter"/>
+		
+</beans>
