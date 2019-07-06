@@ -13,6 +13,8 @@ import myspring.di.xml.Printer;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 // Spring-test의 maven(library)에 ApplicationContext를 설정해주기 때문에 따로 GenericXml..을 설정안해도됨.
 @ContextConfiguration(locations="classpath:config/beans.xml")
@@ -22,19 +24,25 @@ public class HelloBeanJUnitSpringTest {
 	//해당 변수에 자동으로 빈을 매핑해줌. 즉, 위에서 자동으로 설정된 빈을 context변수에 맵핑.
 	ApplicationContext context;
 	
-	@Test @Ignore
+	@Test 
 	public void test1() {
 		
 		//Hello Bean 가져오기
-		Hello hello =(Hello)context.getBean("hello");
+		Hello hello =(Hello)context.getBean("hello2");
 		assertEquals("HelloSpring", hello.sayHello()); //assertEquals로 결과값 보기
 		hello.print();
+		
+		assertEquals(3,hello.getNames().size());
+		List<String> list=hello.getNames();
+		for (String value : list) {
+			System.out.println(value);
+		}
 		//StringPrinter Bean 가져오기
 		Printer printer = context.getBean("printer",Printer.class);
 		assertEquals("HelloSpring",printer.toString());
 	}
 	
-	@Test
+	@Test @Ignore
 	public void test2() {
 		//Hello Bean 가져오기
 		Hello hello =(Hello)context.getBean("hello");

@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
-
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	
 	<!-- StringPrinter와 ConsolPrinter의 관리 관한을 넘기기 위해 bean 사용 -->
+	<!-- 생성자 설정 -->
+	<!-- <bean id="hello2" class="myspring.di.xml.Hello">
+		<constructor-arg index="0" value="Spring"/>
+		<constructor-arg index="1"  ref="printer"/>
+ 		<property name="names">
+			<list>
+				<value>AOP</value>
+				<value>Spring</value>
+				<value>DI</value>
+			</list>
+		</property>
+	</bean> -->
+	<!-- 프로퍼티 파일 이용 -->
+	<context:property-placeholder location="classpath:config/values.properies"/>
+	<!-- 프로퍼티 파일 연결, ${} 이용 가능 -->
+	<bean id="hello2" class="myspring.di.xml.Hello">
+		<constructor-arg index="0" value="${myname}"/>
+		<constructor-arg index="1"  ref="${myprinter}"/>
+ 		<property name="names">
+			<list>
+				<value>${value1}</value>
+				<value>${value2}</value>
+				<value>${value3}</value>
+			</list>
+		</property>
+	</bean>
+		
+	<!--set 설정 -->
 	<bean id="hello" class="myspring.di.xml.Hello"> <!-- Hello파일은 Printer클래스 혹은 Consol클래스와의 의존관계가 있음 따라서 이를 명시해야함 -->
 		<!-- setName(name)과 맴핑 -->
 		<property name="name" value="Spring"/>
@@ -15,4 +46,3 @@
 	<bean id="consolePrinter" class="myspring.di.xml.ConsolPrinter"/>
 		
 </beans>
- 
